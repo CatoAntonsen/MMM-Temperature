@@ -11,6 +11,11 @@
 Module.register("MMM-Temperature",{
 
 	defaults: {
+		RefreshInterval: 10000,
+		Id: null,
+		Prefix: "System temperature: ",
+		Suffix: "°",
+		DebugGettingTemperature: true
 	},
 
 	start: function() {
@@ -21,8 +26,12 @@ Module.register("MMM-Temperature",{
 
 	getDom: function() {
 		var wrapper = document.createElement("div");
-		var temp = document.createTextNode("Temperature: " + this.temperature + "°");
-		wrapper.appendChild(temp);
+		wrapper.className = "small";
+		if (this.temperature != null) {
+			var temp = document.createTextNode(this.config.Prefix + this.temperature + this.config.Suffix);
+			temp.className = "light";
+			wrapper.appendChild(temp);
+		} 
 		return wrapper;
 	},
 	
